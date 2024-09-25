@@ -26,6 +26,13 @@ const bscMainnet: NetworkUserConfig = {
   accounts: [process.env.KEY_MAINNET!],
 };
 
+const pulseTest: NetworkUserConfig = {
+  url: "https://rpc.v4.testnet.pulsechain.com",
+  chainId: 943,
+  accounts: [process.env.KEY_PULSETEST!],
+};
+
+
 const goerli: NetworkUserConfig = {
   url: "https://rpc.ankr.com/eth_goerli",
   chainId: 5,
@@ -46,11 +53,22 @@ const config = {
     ...(process.env.KEY_MAINNET && { bscMainnet }),
     ...(process.env.KEY_GOERLI && { goerli }),
     ...(process.env.KEY_ETH && { eth }),
+    ...(process.env.KEY_PULSETEST && { pulseTest }),
     // testnet: bscTestnet,
     // mainnet: bscMainnet,
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: process.env.ETHERSCAN_API_KEY || '',
+    customChains: [
+        {
+            network: pulseTest,
+            chainId: 943,
+            urls: {
+                apiURL: "https://scan.v4.testnet.pulsechain.com/api",
+                browserURL: "https://scan.v4.testnet.pulsechain.com/"
+            }
+        }
+    ],
   },
   solidity: {
     compilers: [

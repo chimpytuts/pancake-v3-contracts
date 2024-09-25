@@ -3,6 +3,7 @@
 
 const networks = {
   eth: 'eth',
+  pulseTest: 'pulseTest',
   goerli: 'goerli',
   bscMainnet: 'bscMainnet',
   bscTestnet: 'bscTestnet',

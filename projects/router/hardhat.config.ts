@@ -46,6 +46,12 @@ const goerli: NetworkUserConfig = {
   accounts: [process.env.KEY_GOERLI!],
 }
 
+const pulseTest: NetworkUserConfig = {
+  url: "https://rpc.v4.testnet.pulsechain.com",
+  chainId: 943,
+  accounts: [process.env.KEY_PULSETEST!],
+};
+
 const eth: NetworkUserConfig = {
   url: 'https://eth.llamarpc.com',
   chainId: 1,
@@ -64,11 +70,22 @@ const config: HardhatUserConfig = {
     ...(process.env.KEY_MAINNET && { bscMainnet }),
     ...(process.env.KEY_GOERLI && { goerli }),
     ...(process.env.KEY_ETH && { eth }),
+    ...(process.env.KEY_PULSETEST && { pulseTest }),
     // goerli: goerli,
     // mainnet: bscMainnet,
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY || '',
+    customChains: [
+        {
+            network: pulseTest,
+            chainId: 943,
+            urls: {
+                apiURL: "https://scan.v4.testnet.pulsechain.com/api",
+                browserURL: "https://scan.v4.testnet.pulsechain.com/"
+            }
+        }
+    ],
   },
   solidity: {
     compilers: [
